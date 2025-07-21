@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Booking - BraidsByMbalz</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #e6ccff, #f3e6ff);
+      position: relative;
+      min-height: 100vh;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    a.back-arrow {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      font-size: 24px;
+      color: white;
+      text-decoration: none;
+      z-index: 100;
+    }
+
+    h1 {
+      text-align: center;
+      color: white;
+      margin-top: 60px;
+    }
+
+    .booking-container {
+      max-width: 500px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .hairstyle-preview {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #f8f8f8;
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+
+    .hairstyle-preview img {
+      max-width: 80px;
+      border-radius: 8px;
+    }
+
+    .remove-btn {
+      background: red;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 25px;
+      height: 25px;
+      cursor: pointer;
+    }
+
+    form label {
+      display: block;
+      margin: 10px 0 5px;
+    }
+
+    form input, form textarea {
+      width: 100%;
+      padding: 8px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+    }
+
+    form button {
+      width: 100%;
+      padding: 10px;
+      background-color: #b266ff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    form button:hover {
+      background-color: #9933ff;
+    }
+
+    @media (max-width: 600px) {
+      .booking-container {
+        width: 90%;
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html" class="back-arrow"><i class="fas fa-arrow-left"></i></a>
+  <h1>Confirm Your Booking</h1>
+  <div class="booking-container">
+
+    <div class="hairstyle-preview" id="hairstylePreview" style="display:none;">
+      <img id="hairstyleImg" src="" alt="Selected Hairstyle">
+      <div>
+        <p id="hairstyleDetails"></p>
+      </div>
+      <button class="remove-btn" onclick="removeHairstyle()">&times;</button>
+    </div>
+
+    <form id="bookingForm">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="number">WhatsApp Number</label>
+      <input type="tel" id="number" name="number" required>
+
+      <label for="address">Address</label>
+      <input type="text" id="address" name="address" required>
+
+      <label for="date">Date</label>
+      <input type="date" id="date" name="date" required>
+
+      <label for="time">Time</label>
+      <input type="time" id="time" name="time" required>
+
+      <button type="submit">Confirm Booking</button>
+    </form>
+  </div>
+
+  <script>
+    const bookedDates = [];
+
+    document.getElementById('date').addEventListener('input', function(e) {
+      if (bookedDates.includes(e.target.value)) {
+        alert("This date is already booked. Please choose another one.");
+        e.target.value = '';
+      }
+    });
+
+    document.getElementById('bookingForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const number = document.getElementById('number').value;
+      const address = document.getElementById('address').value;
+      const date = document.getElementById('date').value;
+      const time = document.getElementById('time').value;
+      const hairstyleDetails = document.getElementById('hairstyleDetails').textContent;
+
+      const message = `Hello BraidsByMbalz, I ${name} from ${address} would like to do the hairstyle ${hairstyleDetails} and would like to come on the ${date} at ${time}. Please confirm the fibre quantity I need to get and. Thank you!`;
+
+      const whatsappLink = `https://wa.me/27813198929?text=${encodeURIComponent(message)}`;
+      window.open(whatsappLink, '_blank');
+
+      bookedDates.push(date);
+    });
+
+    // Handle hairstyle selection from previous page (simulating localStorage)
+    window.onload = function() {
+      const selectedHairstyle = JSON.parse(localStorage.getItem('selectedHairstyle'));
+      if (selectedHairstyle) {
+        document.getElementById('hairstyleImg').src = selectedHairstyle.image;
+        document.getElementById('hairstyleDetails').textContent = `${selectedHairstyle.name}, ${selectedHairstyle.size}, ${selectedHairstyle.length}`;
+        document.getElementById('hairstylePreview').style.display = 'flex';
+      }
+    }
+
+    function removeHairstyle() {
+      localStorage.removeItem('selectedHairstyle');
+      document.getElementById('hairstylePreview').style.display = 'none';
+    }
+  </script>
+</body>
+</html>

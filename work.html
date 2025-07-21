@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Work - BraidsByMbalz</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Fira Mono', monospace;
+      background: linear-gradient(135deg, #c9a7f3, #e8d4ff);
+      background-size: 200% 200%;
+      animation: shimmer 6s infinite alternate;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 1rem;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+
+    h1 {
+      margin: 60px 0 20px;
+      color: purple;
+      text-align: center;
+      font-family: 'Brush Script MT', cursive;
+
+    }
+
+    .back-arrow {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      font-size: 30px;
+      color: white;
+      cursor: pointer;
+      z-index: 999;
+      text-decoration: none;
+    }
+
+    .carousel {
+      position: relative;
+      width: 90%;
+      max-width: 350px;
+      height: 400px;
+      border: 3px solid white;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    }
+
+    .image-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .image-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .image-wrapper:hover img {
+      filter: blur(2px);
+      transform: scale(1.05);
+    }
+
+    .info-panel {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .image-wrapper:hover .info-panel {
+      opacity: 1;
+      background: rgba(0, 0, 0, 0.6);
+    }
+
+    .info-panel select,
+    .info-panel button {
+      margin: 5px 0;
+      padding: 5px 10px;
+      border-radius: 5px;
+      border: none;
+    }
+
+    .info-panel button {
+      background-color: purple;
+      color: white;
+      cursor: pointer;
+    }
+
+    .style-name {
+      text-align: center;
+      margin-top: 15px;
+      color: white;
+      font-size: 1.2rem;
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin: 20px 0;
+    }
+
+    .nav-buttons button {
+      background-color: #a882dd;
+      border: none;
+      padding: 10px 20px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+
+    .popup {
+      position: fixed;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 20px 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+      display: none;
+      z-index: 999;
+      text-align: center;
+    }
+
+    .popup.show {
+      display: block;
+    }
+
+    .popup button {
+      margin-top: 10px;
+      padding: 6px 15px;
+      background-color: purple;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+
+    .info-icon {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      color: white;
+      font-size: 22px;
+      cursor: pointer;
+      z-index: 2;
+    }
+
+    @media screen and (max-width: 500px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      .carousel {
+        height: 360px;
+      }
+
+      .back-arrow {
+        font-size: 26px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- White top-left arrow to go back to index -->
+  <a href="index.html" class="back-arrow"><i class="fas fa-arrow-left"></i></a>
+
+  <h1>My Work</h1>
+
+  <div class="carousel">
+    <div class="info-icon" onclick="toggleOptions()">i</div>
+    <div class="image-wrapper">
+      <img id="styleImage" src="godess.jfif" alt="Goddess Braids">
+      <div class="info-panel" id="infoPanel">
+        <select id="length">
+          <option value="">Choose length</option>
+          <option value="Shoulder">Shoulder length</option>
+          <option value="Knee">Knee length</option>
+          <option value="Bum">Bum length</option>
+        </select>
+        <select id="size">
+          <option value="">Choose size</option>
+          <option value="Small">Small</option>
+          <option value="Medium">Medium</option>
+          <option value="Large">Large</option>
+        </select>
+        <button onclick="bookNow()">Book</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="style-name" id="styleName">Goddess Braids</div>
+
+  <div class="nav-buttons">
+    <button onclick="previous()">Previous</button>
+    <button onclick="next()">Next</button>
+  </div>
+
+  <div class="popup" id="popup">
+    <p id="popupText"></p>
+    <button onclick="closePopup()">Okay</button>
+  </div>
+
+  <script>
+    const styles = [
+      { name: "Goddess Braids", image: "godess.jfif" },
+      { name: "Knotless Braids", image: "knotless.jfif" },
+      { name: "Peekaboo Braids", image: "peekaboo.jpg" },
+      { name: "French Curls", image: "french.jpg" },
+      { name: "Faux Locs", image: "faux.jpg" },
+      { name: "Invisible Locs", image: "invisible.jpg" },
+      { name: "Boho Bob", image: "boho.jpg" },
+      { name: "Butterfly Locs", image: "butterfly.jpg" },
+      { name: "Jumbo Braids", image: "jumbo.jpg" },
+      { name: "Short Beaded Braids", image: "beaded.jpg" }
+    ];
+
+    let currentIndex = 0;
+    const styleImage = document.getElementById("styleImage");
+    const styleName = document.getElementById("styleName");
+    const infoPanel = document.getElementById("infoPanel");
+
+    function updateStyle(index) {
+      styleImage.src = styles[index].image;
+      styleName.textContent = styles[index].name;
+    }
+
+    function previous() {
+      currentIndex = (currentIndex - 1 + styles.length) % styles.length;
+      updateStyle(currentIndex);
+    }
+
+    function next() {
+      currentIndex = (currentIndex + 1) % styles.length;
+      updateStyle(currentIndex);
+    }
+
+    function toggleOptions() {
+      infoPanel.style.opacity = infoPanel.style.opacity === "1" ? "0" : "1";
+    }
+
+    function bookNow() {
+      const length = document.getElementById("length").value;
+      const size = document.getElementById("size").value;
+
+      if (!length || !size) {
+        alert("Please choose a length and size.");
+        return;
+      }
+
+      const selectedStyle = styles[currentIndex].name;
+      const message = `Booking: ${selectedStyle} - ${length} - ${size}`;
+
+      document.getElementById("popupText").innerText = message;
+      document.getElementById("popup").classList.add("show");
+
+      setTimeout(() => {
+        window.location.href = `booking.html?style=${encodeURIComponent(selectedStyle)}&length=${length}&size=${size}`;
+      }, 2500);
+    }
+
+    function closePopup() {
+      document.getElementById("popup").classList.remove("show");
+    }
+
+    updateStyle(currentIndex);
+  </script>
+</body>
+</html>

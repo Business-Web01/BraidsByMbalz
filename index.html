@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BraidsByMbalz</title>
+  <link href="https://fonts.googleapis.com/css2?family=Brush+Script+MT&family=Roboto+Mono&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #e6d6f0; /* pastel purple */
+      font-family: 'Roboto Mono', monospace;
+      color: #333;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      width: 100%;
+      padding: 20px;
+    }
+
+    .centered-content {
+      text-align: center;
+    }
+
+    /* Circle frame with still image */
+    .circle-frame {
+      width: 130px;
+      height: 130px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: transparent;
+      border: 4px solid white; /* static white border */
+      box-sizing: border-box;
+    }
+
+    .circle-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      display: block;
+    }
+
+    .main-title {
+      font-family: 'Brush Script MT', cursive;
+      font-size: 4.5rem;
+      color: #4b0082;
+    }
+
+    .subtitle {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      color: #555;
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 2rem;
+    }
+
+    .social-icons a {
+      font-size: 2rem;
+      transition: transform 0.3s ease;
+    }
+
+    .tiktok {
+      color: #000;
+    }
+
+    .instagram {
+      background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .social-icons a:hover {
+      transform: scale(1.2);
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      align-items: center;
+    }
+
+    /* Button base styles */
+    .nav-btn {
+      background-color: #7b4ca0; /* darker purple */
+      color: #fff;
+      text-decoration: none;
+      padding: 12px 24px;
+      border-radius: 25px;
+      font-size: 1rem;
+      width: 80%;
+      max-width: 250px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+
+    /* Scale bigger on hover */
+    .nav-btn:hover {
+      transform: scale(1.1);
+      cursor: pointer;
+    }
+
+    /* Shimmer effect using a moving gradient */
+    .nav-btn::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -75%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(
+        120deg,
+        rgba(255,255,255,0) 0%,
+        rgba(255,255,255,0.6) 50%,
+        rgba(255,255,255,0) 100%
+      );
+      transform: skewX(-20deg);
+      transition: left 0.5s ease;
+      pointer-events: none;
+    }
+
+    .nav-btn:hover::before {
+      left: 125%;
+      transition: left 0.7s ease;
+    }
+
+    /* Mobile responsive */
+    @media (max-width: 600px) {
+      .main-title {
+        font-size: 2.5rem;
+      }
+
+      .subtitle {
+        font-size: 1rem;
+      }
+
+      .nav-btn {
+        font-size: 0.9rem;
+        padding: 10px 20px;
+      }
+
+      .circle-frame {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="centered-content">
+      <div class="circle-frame">
+        <img src="app.jpg" alt="Mbali's Photo" />
+      </div>
+
+      <h1 class="main-title">BraidsByMbalz</h1>
+      <p class="subtitle">Plaiter</p>
+
+      <div class="social-icons">
+        <a href="https://www.tiktok.com" target="_blank" class="tiktok"><i class="fab fa-tiktok"></i></a>
+        <a href="https://www.instagram.com" target="_blank" class="instagram"><i class="fab fa-instagram"></i></a>
+      </div>
+
+      <div class="buttons">
+        <a href="work.html" class="nav-btn">My Work</a>
+        <a href="booking.html" class="nav-btn">BookME</a>
+        <a href="policy.html" class="nav-btn">Work Policy</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
